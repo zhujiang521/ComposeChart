@@ -8,11 +8,11 @@ import androidx.compose.ui.graphics.Color
  */
 data class LineChartData(
     // 模块数值
-    val num: Float,
+    val num: Float = 0f,
     // 模块名称
-    val text: String,
+    val text: String = "",
     // 模块的颜色
-    val color: Color? = null,
+    val color: Color? = Color.Black,
     // 渐变颜色
     val brush: Brush? = null,
 )

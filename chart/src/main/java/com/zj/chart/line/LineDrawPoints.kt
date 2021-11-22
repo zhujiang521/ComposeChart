@@ -7,7 +7,12 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import kotlin.math.abs
 
-fun DrawScope.lineDrawPoints(offsetList: ArrayList<Offset>, clickOffset: Offset) {
+fun DrawScope.lineDrawPoints(
+    offsetList: ArrayList<Offset>,
+    lineDataValues: List<LineChartData>,
+    clickOffset: Offset,
+    pointClickListener: (LineChartData) -> Unit
+) {
     drawPoints(
         offsetList,
         PointMode.Polygon,
@@ -15,7 +20,8 @@ fun DrawScope.lineDrawPoints(offsetList: ArrayList<Offset>, clickOffset: Offset)
         strokeWidth = 15f,
         cap = StrokeCap.Round
     )
-    offsetList.forEach { point ->
+    for (index in offsetList.indices) {
+        val point = offsetList[index]
         if (detectOffset(clickOffset, point)) {
             drawPoints(
                 arrayListOf(point),
@@ -24,6 +30,7 @@ fun DrawScope.lineDrawPoints(offsetList: ArrayList<Offset>, clickOffset: Offset)
                 strokeWidth = 35f,
                 cap = StrokeCap.Round
             )
+            pointClickListener(lineDataValues[index])
         } else {
             drawPoints(
                 arrayListOf(point),
